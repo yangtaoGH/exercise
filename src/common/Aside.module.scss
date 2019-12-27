@@ -1,0 +1,27 @@
+ul.dir {
+    // display: flex;
+    // flex-direction: row;
+    height: 35px;
+    line-height: 35px;
+    border-bottom: 1px solid #e6e6e6;
+    // padding-top: 10px;
+    // background: yellowgreen;
+    li {
+        > a {
+            box-sizing: border-box;
+            padding: 3px 20px 6px;
+            color: #444;
+            border-bottom: 1px solid transparent;
+            border-right: 1px solid transparent;
+            border-left: 1px solid transparent; 
+            background: #fff;
+        }
+    }
+}
+.active {
+    border-top: 4px solid #2963b3;
+    // 怎样通过线条
+    border-left-color: #e6e6e6 !important;
+    border-right-color: #e6e6e6 !important;
+    padding-bottom: 8px !important;
+}

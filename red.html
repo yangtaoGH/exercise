@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        const createStore = (reducer) => {
+            // 创建一个空的对象
+            let state = {};
+                // 通过订阅的方式去进行数据通知
+            let listeners = [];
+            function subscribe(listener) {
+                listeners.push(listener)
+            }
+
+            // 改变数据
+            function dispatch(action) {
+                // 这边少了一个参数
+                state = reducer(state, action);
+                // 更改数据就进行通知
+                for(let i = 0; i < listeners.length; i++) {
+                    const lisener = listeners[i];
+                    lisener();
+                }
+            }
+            function getState() {
+                return state;
+            }
+            dispatch({type: Symbol()})
+            return {
+                subscribe,
+                dispatch,
+                getState
+            }
+        }
+
+        // 开始按照计划去修改数据
+        const counterReducer = function(state, action) {
+            if (!state) {
+                state = {
+                    count: 1
+                }
+            }
+            // 目标是返回一个新的state的数据
+            // 根据action的type类型去进行数据的判断方向
+            switch(action.type) {
+                case 'INCREMENT':
+                    return {
+                        ...state,
+                        count: state.count + 1
+                    }
+                case 'DECREMENT':
+                    return {
+                        ...state,
+                        count: state.count - 1
+                    }
+                default: 
+                    return state
+            }
+        }
+        const infoReducer = function(state, action) {
+            // 第一次进入的时候，state[key]对应的值是空的，
+            // 没有当前需要的值，所以state的值默认是空值，进行初始化得传输，
+            // 因为type的值也是惟一的，则值就变成default值默认传输出去，将传出一个完整的state的值
+
+            if (!state) {
+                state = {
+                    name: '柯南',
+                    description: '万年小学生'
+                }
+            }
+            switch(action.type) {
+                case 'SET_NAME':
+                    return {
+                        ...state,
+                        name: action.name
+                    }
+                case 'SET_DES':
+                    return {
+                        ...state,
+                        description: action.description
+                    }
+                default: 
+                    return state
+            }
+        }
+
+        const combineReducer = (reducers) => {
+            // 返回一个单独reducer那样的函数，通过for循环去进行便利
+            const reducerKeys = Object.keys(reducers);
+            // reducer的作用就是接受一个新的数据，然后返回另一个数据
+            return function combine(state, action) {
+                // 返回一个新的数据
+                let nextState = {};
+                for (let i = 0; i < reducerKeys.length; i++) {
+                    // 当前传入进来的reducer的key值，这儿指代的是counter， info
+                    const key = reducerKeys[i];
+                    // 调用单个的reducer函数
+                    const reducer = reducers[key];
+                    // 未改变的值直接通过全局的state属性的方式获取到值
+                    const previousStateForKey = state[key];
+                    // 替换对应的值
+                    const nextStateForKey = reducer(previousStateForKey, action);
+                    nextState[key] = nextStateForKey;
+                }
+                return nextState;
+            }
+        }
+
+        // 当有多个的reducer的时候
+        const reducer = combineReducer({
+            counter: counterReducer,
+            info: infoReducer
+        })
+        // const store = createStore(reducer);
+
+        const applyMiddleware = function(...middlewares) {
+            return function rewriteCreateStoreFunc(oldCreateStore) {
+                const store = oldCreateStore(reducer, initState);
+                
+            }
+        }
+
+         // 对中间件开始优化，
+         const newCreateStore = applyMiddleware(exceptionMiddleware, timeMiddleware, loggerMiddleware)(createStore);
+        const store = newCreateStore(reducer);
+       
+
+        // 开始进行通知函数的执行
+        // subscribe函数都需要传递一个函数当做参数
+        store.subscribe(() => {
+            const state = store.getState();
+            // console.log(state, '更改后的值')
+        })
+        // 中间件的作用就是对dispatch的功能进行扩展，
+        // 通过改写dispatch的函数，然后进行数据的操控
+        // 开始对dispatch函数的改造，进行错误检验
+
+        // 保存原有的dispatch函数，之后开始调用
+        const next = store.dispatch;
+
+        // 重新赋值一个函数，然后在处理数据之前，记录数据，然后再调用对应的数据
+
+        // 对dispatch扩展用来监视数据的变化
+        const loggerMiddleware = (store) => (next) => (action) => {
+            const preState = store.getState();
+            console.log(preState, '修改之前的数据');
+            next(action);
+            const nextState = store.getState();
+            console.log(nextState, '修改后的数据')
+        }
+        // 继续对dispatch的扩展
+        const exceptionMiddleware = (store) => (next) => (action) => {
+            try {
+                // loggerMiddleware(action);
+                // 通过传入进入的next函数执行，而不是仅仅记录日志的函数才能执行
+                next(action);
+            } catch(e) {
+                console.log(e, '错误报告')
+            }
+        }
+        const timeMiddleware = (store) => (next) => (action) => {
+            console.log('time', new Date().getTime());
+            next(action)
+        }
+        const logger = loggerMiddleware(store);
+        const exception = exceptionMiddleware(store);
+        const time = timeMiddleware(store);
+        store.dispatch = exception(time(logger(next)));
+
+       
+
+
+        store.dispatch({type: 'INCREMENT'})
+        store.dispatch({
+            type: 'SET_DES',
+            description: '人行轰炸机'
+        })
+    </script>
+</body>
+</html>

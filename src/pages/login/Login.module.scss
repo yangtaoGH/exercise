@@ -1,0 +1,21 @@
+.login {
+    width:400px;
+    margin: 0 auto;
+    padding-top: 50px;
+    > div {
+
+        > img {
+            width: 400px;
+        }
+    }
+    >input {
+        margin-top: 20px;
+    }
+    > span {
+        margin-top: 20px;
+    }
+    button {
+        margin-top: 20px;
+        width: 400px;
+    }
+}
