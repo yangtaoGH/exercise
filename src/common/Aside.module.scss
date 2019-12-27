@@ -15,9 +15,15 @@ ul.dir {
             border-right: 1px solid transparent;
             border-left: 1px solid transparent; 
             background: #fff;
+            &:not(.active):hover {
+            // &:not(:global(.active)):hover {
+                color: #999;
+            }
         }
     }
 }
+// :global可以去掉，那么上面的global也需要去除，不然两者之间的关系就不能一一对应了（去除，页面上的类名进行相应的变化）
+// :global(.active) {
 .active {
     border-top: 4px solid #2963b3;
     // 怎样通过线条

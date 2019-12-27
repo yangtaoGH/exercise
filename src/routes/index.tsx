@@ -1,20 +1,19 @@
 // 这个路由列表数据可以单独提取出来，然后通过导入的方式引入进来
 // 通过lazy引入所有的模块
-import React, { lazy } from 'react';
-const First = lazy(() => import('pages/view/main/First'));
-const Second = lazy(() => import('pages/view/Second'));
+import { lazy } from 'react';
+const MainCenter = lazy(() => import('pages/view/main/MainCenter'));
+const Second = lazy(() => import('pages/view/concat/Second'));
 const None = lazy(() => import('pages/view/None'));
 const Ntwo = lazy(() => import('pages/view/Ntwo'));
 
 // 对于首页如果有多个tab页，那么将其写成它的另一个对象就好了
-
 const routeData = [
     {
         id: '0',
         path: '/main/home',
         title: '总览',
         icon:'',
-        component: First, //首页的方式引入了当前的文件内容
+        component: MainCenter, //首页的方式引入了当前的文件内容
         // tab: [
         //     {
         //         id: 0,
