@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense } from 'react';
 import { Switch, Route, NavLink, Redirect, } from 'react-router-dom';
 import { Menu, Icon } from 'antd';
 import AsideStyles from './Aside.module.scss';
@@ -6,10 +6,7 @@ import AsideStyles from './Aside.module.scss';
 // const First = React.lazy(() => import('pages/view/First'));
 // const Second = React.lazy(() => import('pages/view/Second'));
 
-{/* <Suspense fallback={<div>Loading...</div>}>
-<OtherComponent />
-   <TowComponent />
-</Suspense> */}
+
 
 // 路由文件是将侧边狂所有的类型的路由以及页面的
 // 配置点击侧边栏后对应的路由

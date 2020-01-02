@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+// import { Switch, Route, Redirect } from 'react-router-dom';
 import viewStyles from './view.module.scss';
 
 // 通用的路由结构样式
@@ -8,8 +8,8 @@ import { Aside, Main }  from 'common/Aside';
 import routeData from 'routes/index';
 
 
-import Header from './view/Header';
-import Footer from './view/Footer';
+import Header from './view/common/Header';
+import Footer from './view/common/Footer';
 import logo from 'asset/imgs/logo.jpeg';
 
 
@@ -21,7 +21,7 @@ const View = () => {
             <div>
                 <div>
                     <img src={logo} alt=""/>
-                    <span>人际关系</span>
+                    <span>系统</span>
                 </div>
                 <Aside routeData={routeData} />
             </div>

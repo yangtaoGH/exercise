@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 // import AppStyle from 'asset/css/app.module.scss';
 import Login from 'pages/login/Login';
 import View from 'pages/View';

@@ -1,0 +1,120 @@
+.box {
+    width: 500px;
+    height: 500px;
+    // background: yellowgreen;
+    transform-style: preserve-3d;
+    position: relative;
+    transform: rotateX(15deg) rotateY(15deg);
+    padding-top: 200px;
+    margin-top: 100px;
+    padding-left: 200px;
+    margin: 50px auto;
+    animation: move linear 6s infinite  ;
+    // transform-origin:100px 100px;
+
+    li{
+        position: absolute;
+        font-size: 40px;
+        text-align: center;
+    }
+    .inner {
+        width: 120px;
+        height: 120px;
+        line-height: 200px;
+        opacity: 0.9;
+        background: #000;
+        left: 250px;
+        top: 200px;
+    }
+    .inRight {
+        background: yellowgreen;
+        transform: rotateY(90deg) translateZ(60px);
+    }
+    .inLeft {
+        background: skyblue;
+        transform: rotateY(270deg) translateZ(60px);
+    }
+    .inTop {
+        background: hotpink;
+        transform: rotateX(90deg) translateZ(60px);
+    }
+    .inBottom {
+        background: blueviolet;
+        transform: rotateX(270deg) translateZ(60px);
+    }
+    .inFront {
+        background: goldenrod;
+        transform: translateZ(60px);
+    }
+    .inBack {
+        background: palegreen;
+        transform:rotateY(180deg) translateZ(60px);
+    }
+    .outer {
+        width: 300px;
+        height: 300px;
+        // background: green;
+        line-height: 300px;
+        // display: none;
+        opacity: 0.8;
+        left: 150px;
+        top: 100px;
+        transition: all 1s;
+        > img {
+            width: 300px;
+            height: 300px;
+            overflow: hidden;
+        }
+    }
+    .outRight {
+        background: yellowgreen;
+        transform: rotateY(90deg) translateZ(150px);
+    }
+    &:hover .outRight {
+        transform: rotateY(90deg) rotateZ(180deg) translateZ(200px);
+    }
+    .outLeft {
+        background: skyblue;
+        transform: rotateY(270deg) translateZ(150px);
+    }
+    &:hover .outLeft {
+        transform: rotateY(270deg) rotateZ(180deg) translateZ(200px);
+    }
+    .outTop {
+        background: hotpink;
+        transform: rotateX(90deg) translateZ(150px);
+    }
+    &:hover .outTop {
+        transform: rotateX(90deg) rotateZ(180deg) translateZ(200px);
+    }
+    .outBottom {
+        background: blueviolet;
+        transform: rotateX(270deg) translateZ(150px);
+    }
+    &:hover .outBottom {
+        transform: rotateX(270deg) rotateZ(180deg) translateZ(200px);
+    }
+    .outFront {
+        background: goldenrod;
+        transform: translateZ(150px);
+    }
+    &:hover .outFront {
+        transform: rotateZ(180deg) translateZ(200px);
+    }
+    .outBack {
+        background: palegreen;
+        transform:rotateY(180deg) translateZ(150px);
+    }
+    &:hover .outBack {
+        transform:rotateY(180deg) rotateZ(-180deg) translateZ(200px);
+    }
+}
+
+@keyframes move {
+    from {
+        transform:rotateX(15deg) rotateY(0deg);
+    }
+    to {
+        transform:rotateX(15deg) rotateY(360deg);
+    }
+}
