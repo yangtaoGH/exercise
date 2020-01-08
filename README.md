@@ -119,3 +119,29 @@ type ButtonEvent = React.MouseEvent<HTMLButtonElement>;
 
 ## 文件命名的时候，需要注意，尽量不要使用index的，因为模块引入的问价都会使用index文件，所以当文件命名一致的时候，特别是文件夹命名一致，且文件夹下，文件命名为index文件，则代表导入模块后，文件的index名称可以被忽略的
 ## 这就会变成要从模块中导入的文件，变成从本地导入，若没有本地文件没有相应的方法，则会报错
+
+
+
+## 项目需要搭建好所需要的环境以及需要用到的软件
+1. 前端： visual studio, git, node, (还可以使用yarn进行各种包的安装)
+2. 后端： mysql数据库，visual community(2017之下几个版本)
+
+## 前后端请求接口的操作思路
+1. 首先需要运行前后端代码，当然后端代码也需要跟前端代码差不多，一个入口文件，然后如果前端代码进行登录接口请求的时候，那么需要调用接口
+2. 后端的代码需要将内容跟数据库进行连接，然后彼此之间产生数据的读写操作
+3. 然后设置访问的接口地址，彼此进行联系操作
+
+
+### 后端的配置文件要求: 首先选择的框架是python搭建django框架进行的后台的项目的搭建，
+1. 如果已经安装好了python了，那么需要做的就是直接使用cmd，运行命令pip install django
+2. pip类似前端的npm包的性质
+3. 配置环境变量的时候，需要精确地找到python的目标文件夹，然后根据该文件下的目录文件目录，添加到系统环境变量中
+> 我的电脑的文件地址是如下所示
++ C:\Users\admin\AppData\Local\Programs\Python\Python37\Lib\site-packages\django （添加django的环境变量）
++ C:\Users\admin\AppData\Local\Programs\Python\Python37\Scripts （添加python的环境变量）
+
+代理就是设置的网址是默认localhost:3000，但是它实际情况是将其网址渲染到接口请求的网址去了
+> 按照Ac项目的实例来说，代理的地址是 'http://10.170.26.164:9001',
+> 但是在前端接口请求上，显示的请求地址是 http://localhost:3000/api/login_auth
+同理：后端端口的请求地址是127.0.0.1:8000/login
+所以当前的代理地址要在setupProxy设置它的值就是127.0.0.1:8000
